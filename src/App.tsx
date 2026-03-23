@@ -5,18 +5,18 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, PerspectiveCamera, Environment, ContactShadows, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { Menu, X, ArrowRight, Github, Linkedin, Twitter, Mail, ExternalLink, Code2, Cpu, Globe, Rocket, Terminal, Zap, Download, Award, CheckCircle2, Send, Eye } from 'lucide-react';
-import { 
-  SiReact, 
-  SiTailwindcss, 
-  SiJavascript, 
-  SiHtml5, 
-  SiCss, 
-  SiNodedotjs, 
-  SiExpress, 
-  SiMongodb, 
-  SiCplusplus, 
-  SiGit, 
-  SiGithub, 
+import {
+  SiReact,
+  SiTailwindcss,
+  SiJavascript,
+  SiHtml5,
+  SiCss,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiCplusplus,
+  SiGit,
+  SiGithub,
   SiOpenai,
   SiPostman,
   SiPython,
@@ -81,8 +81,8 @@ const FloatingElements = () => {
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          initial={{ 
-            x: Math.random() * 100 + "%", 
+          initial={{
+            x: Math.random() * 100 + "%",
             y: Math.random() * 100 + "%",
             opacity: 0.1
           }}
@@ -131,7 +131,7 @@ const CursorGlow = () => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
-    
+
     const flickerInterval = setInterval(() => {
       setFlicker(Math.random() > 0.9 ? 1.2 : 1);
     }, 50);
@@ -158,7 +158,7 @@ const CursorGlow = () => {
           background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)',
         }}
       />
-      
+
       {/* Lightning Core */}
       <motion.div
         className="fixed top-0 left-0 w-4 h-4 rounded-full pointer-events-none z-[10000] blur-sm bg-white"
@@ -168,7 +168,7 @@ const CursorGlow = () => {
           scale: [1, 1.5, 1],
           opacity: [0.5, 1, 0.5],
         }}
-        transition={{ 
+        transition={{
           x: { type: 'spring', damping: 20, stiffness: 300 },
           y: { type: 'spring', damping: 20, stiffness: 300 },
           scale: { duration: 0.1, repeat: Infinity },
@@ -342,29 +342,29 @@ const Robot = ({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) =
     // 2. Head Rotation (Slerp for smooth mouse following)
     scratchEuler.current.set(pitch, yaw, roll);
     targetHeadRotation.current.setFromEuler(scratchEuler.current);
-    
+
     const headAlpha = 1 - Math.exp(-8 * delta);
     head.current.quaternion.slerp(targetHeadRotation.current, headAlpha);
 
     // 3. Body Rotation (Follows head with lag)
     const bodyYaw = mouse.current[0] * (Math.PI / 6);
     const bodyPitch = -mouse.current[1] * 0.1;
-    
+
     scratchEuler.current.set(bodyPitch, bodyYaw, 0);
     targetBodyRotation.current.setFromEuler(scratchEuler.current);
-    
+
     const bodyAlpha = 1 - Math.exp(-4 * delta);
     body.current.quaternion.slerp(targetBodyRotation.current, bodyAlpha);
 
     // 4. Floating/Hovering Motion
     group.current.position.y = Math.sin(t * 1.5) * 0.3;
     group.current.rotation.z = Math.sin(t * 0.8) * 0.04;
-    
+
     // 5. Arm Animations - sword-like arm swings
     if (rightArm.current && leftArm.current) {
       rightArm.current.rotation.z = Math.sin(t * 1.8) * 0.12 - 0.3;
       leftArm.current.rotation.z = -Math.sin(t * 1.8) * 0.12 + 0.3;
-      
+
       const armTargetX = mouse.current[1] * 0.6;
       const armAlpha = 1 - Math.exp(-5 * delta);
       rightArm.current.rotation.x = THREE.MathUtils.lerp(rightArm.current.rotation.x, armTargetX, armAlpha);
@@ -394,7 +394,7 @@ const Robot = ({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) =
           <boxGeometry args={[0.7, 0.9, 0.7]} />
           <meshStandardMaterial color="#CC0000" metalness={0.9} roughness={0.2} />
         </mesh>
-        
+
         {/* Head Crest/Helmet Ridge - Blue */}
         <mesh position={[0, 0.35, 0]} castShadow>
           <boxGeometry args={[0.75, 0.25, 0.35]} />
@@ -490,13 +490,13 @@ const Robot = ({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) =
             <boxGeometry args={[0.35, 0.85, 0.35]} />
             <meshStandardMaterial color="#CC0000" metalness={0.85} roughness={0.25} />
           </mesh>
-          
+
           {/* Elbow Joint */}
           <mesh position={[0, -0.75, 0]}>
             <sphereGeometry args={[0.2, 16, 16]} />
             <meshStandardMaterial color="#0047AB" metalness={0.95} />
           </mesh>
-          
+
           {/* Forearm and Hand */}
           <mesh position={[0, -1.15, 0]} castShadow>
             <boxGeometry args={[0.32, 0.7, 0.32]} />
@@ -516,13 +516,13 @@ const Robot = ({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) =
             <boxGeometry args={[0.35, 0.85, 0.35]} />
             <meshStandardMaterial color="#CC0000" metalness={0.85} roughness={0.25} />
           </mesh>
-          
+
           {/* Elbow Joint */}
           <mesh position={[0, -0.75, 0]}>
             <sphereGeometry args={[0.2, 16, 16]} />
             <meshStandardMaterial color="#0047AB" metalness={0.95} />
           </mesh>
-          
+
           {/* Forearm and Hand */}
           <mesh position={[0, -1.15, 0]} castShadow>
             <boxGeometry args={[0.32, 0.7, 0.32]} />
@@ -543,7 +543,7 @@ const Robot = ({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) =
           <cylinderGeometry args={[1.8, 1.8, 0.15, 64]} />
           <meshStandardMaterial color="#1a1a1a" metalness={0.95} roughness={0.1} />
         </mesh>
-        
+
         {/* Energy Rings - Orange/Blue */}
         <mesh position={[0, 0.08, 0]}>
           <ringGeometry args={[1.5, 1.65, 64]} />
@@ -569,7 +569,7 @@ const Scene = ({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) =
       <ambientLight intensity={0.4} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} castShadow />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#7C3AED" />
-      
+
       <Float speed={2.5} rotationIntensity={0.4} floatIntensity={0.8}>
         <Robot mouse={mouse} />
       </Float>
@@ -607,7 +607,7 @@ const Navbar = () => {
       "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 md:px-12 py-6 flex items-center justify-between",
       isScrolled ? "bg-primary/80 backdrop-blur-xl py-4 border-b border-white/5" : "bg-transparent"
     )}>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         className="text-2xl font-display font-black tracking-tighter text-white"
@@ -617,8 +617,8 @@ const Navbar = () => {
 
       <div className="hidden md:flex items-center gap-10">
         {navLinks.map((item, i) => (
-          <motion.a 
-            key={item.name} 
+          <motion.a
+            key={item.name}
             href={item.href}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -650,9 +650,9 @@ const Navbar = () => {
             className="absolute top-full left-0 right-0 bg-secondary border-b border-white/5 p-8 flex flex-col gap-6 md:hidden"
           >
             {navLinks.map((item) => (
-              <a 
-                key={item.name} 
-                href={item.href} 
+              <a
+                key={item.name}
+                href={item.href}
                 className="text-sm font-bold tracking-widest text-zinc-400"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -683,16 +683,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen w-full flex items-center overflow-hidden pt-20">
-      
-      {/* Background Effects */}
-      <GalaxyBackground />
-      <Stars />
-      <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
-      <div className="absolute inset-0 noise-bg" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-[120px] animate-pulse-glow pointer-events-none" />
-
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 items-center h-full relative z-10">
-        
+
         {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -702,7 +694,7 @@ const Hero = () => {
         >
 
           {/* 🔥 Tag */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -712,7 +704,7 @@ const Hero = () => {
           </motion.div>
 
           {/* 🔥 Name */}
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -741,7 +733,7 @@ const Hero = () => {
           </div>
 
           {/* 🧠 Description */}
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -758,7 +750,7 @@ const Hero = () => {
 
           {/* 🔗 Buttons */}
           <div className="flex flex-wrap gap-5">
-            <a 
+            <a
               href="/CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -767,7 +759,7 @@ const Hero = () => {
               VIEW CV
               <Eye className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </a>
-            <a 
+            <a
               href="/CV.pdf"
               download="RoshanCV.pdf"
               className="px-8 py-4 rounded-xl btn-gradient text-white font-bold text-sm tracking-widest flex items-center gap-3 group"
@@ -792,9 +784,9 @@ const Hero = () => {
 
         {/* RIGHT SIDE (3D unchanged) */}
         <div className="relative h-[500px] lg:h-full w-full flex items-center justify-center">
-          
+
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
               animate={{ opacity: 0.05, scale: 1, rotate: 0 }}
               transition={{ duration: 2 }}
@@ -827,8 +819,6 @@ const About = () => {
       className="py-32 relative overflow-hidden"
       ref={ref}
     >
-      <GalaxyBackground />
-      <Stars />
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-4xl mx-auto text-center">
 
@@ -837,7 +827,7 @@ const About = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            
+
             {/* 🔥 Heading */}
             <h2 className="text-4xl md:text-7xl font-display font-black mb-10 leading-tight">
               ABOUT <span className="text-accent-purple">ME</span>
@@ -897,13 +887,6 @@ const Projects = () => {
 
   return (
     <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden text-white selection:bg-accent-purple/30" id="projects">
-      {/* Background Effects */}
-      <GalaxyBackground />
-      <Stars />
-      <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
-      <div className="absolute inset-0 noise-bg" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-[120px] animate-pulse-glow pointer-events-none" />
-
       {/* SECTION HEADER */}
       <div className="container mx-auto px-6 md:px-12 flex flex-col items-center text-center py-24 z-10">
         <motion.div
@@ -1030,10 +1013,8 @@ const Skills = () => {
 
   return (
     <section id="skills" className="py-32 relative overflow-hidden" ref={ref}>
-      <GalaxyBackground />
-      <Stars />
       <div className="container mx-auto px-6 md:px-12">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -1056,8 +1037,8 @@ const Skills = () => {
               <h3 className="text-xs font-black tracking-[0.2em] text-accent-purple mb-8 border-b border-white/5 pb-4 group-hover/card:text-white transition-colors">{group.title}</h3>
               <div className="space-y-6">
                 {group.skills.map((skill, j) => (
-                  <motion.div 
-                    key={skill.name} 
+                  <motion.div
+                    key={skill.name}
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -1065,8 +1046,8 @@ const Skills = () => {
                     className="flex items-center gap-4 group cursor-default"
                   >
                     <div className="w-10 h-10 rounded-xl bg-black/5 flex items-center justify-center group-hover:bg-accent-purple/20 transition-all group-hover:scale-110 group-hover:rotate-6">
-                      <skill.icon 
-                        className="w-5 h-5 transition-all" 
+                      <skill.icon
+                        className="w-5 h-5 transition-all"
                         style={{ color: skill.color }}
                       />
                     </div>
@@ -1086,16 +1067,13 @@ const Achievements = () => {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   const achievements = [
-    { label: 'LEETCODE', value: 'VIEW PROFILE', icon: SiLeetcode, url: 'https://leetcode.com/u/Roshan_karthik/', extra: 'heatmap' },
-    { label: 'GEEKS FOR GEEKS', value: 'VIEW PROFILE', icon: SiGeeksforgeeks, url: 'https://www.geeksforgeeks.org/profile/roshankarthik160705', extra: 'rank' }
+    { label: 'LEETCODE', value: 'VIEW PROFILE', icon: SiLeetcode, url: 'https://leetcode.com/u/Roshan_karthik/', extra: 'heatmap' }
   ];
 
   return (
     <section id="achievements" className="py-32 relative overflow-hidden">
-      <GalaxyBackground />
-      <Stars />
       <div className="container mx-auto px-6 md:px-12">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -1105,7 +1083,7 @@ const Achievements = () => {
           <TextReveal text="ACHIEVEMENTS." className="text-4xl md:text-6xl font-display font-black" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 max-w-2xl mx-auto gap-8">
           {achievements.map((achievement, i) => (
             <div key={i} className="flex flex-col items-center">
               <motion.div
@@ -1118,8 +1096,8 @@ const Achievements = () => {
                 className="glass p-10 rounded-[40px] border-white/5 text-center group hover:border-accent-purple/30 transition-all relative overflow-hidden cursor-pointer w-full"
               >
                 <div className="absolute inset-0 bg-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <motion.div 
+
+                <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
@@ -1128,9 +1106,9 @@ const Achievements = () => {
                 >
                   <achievement.icon className="w-8 h-8 text-zinc-500 group-hover:text-accent-purple transition-colors" />
                 </motion.div>
-                
+
                 <div className="text-5xl font-display font-black text-white mb-3 relative z-10 min-h-[70px] flex items-center justify-center">
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -1143,23 +1121,27 @@ const Achievements = () => {
                 </div>
                 <div className="text-xs font-black tracking-[0.2em] text-zinc-500 uppercase relative z-10">{achievement.label}</div>
 
-              {achievement.extra === 'heatmap' && (
-                <div className="mt-6 w-full max-w-md mx-auto">
-                  <img 
-                    src="https://leetcard.vercel.app/Roshan_karthik?theme=dark&ext=heatmap" 
-                    alt="LeetCode Contribution Heatmap" 
-                    className="w-full rounded-lg border border-white/10"
-                  />
-                </div>
-              )}
+                {achievement.extra === 'heatmap' && (
+                  <div className="mt-6 w-full max-w-md mx-auto">
+                    <img
+                      src="https://leetcard.jacoblin.cool/Roshan_karthik?theme=dark&ext=heatmap"
+                      alt="LeetCode Contribution Heatmap"
+                      className="w-full rounded-lg border border-white/10"
+                    />
+                  </div>
+                )}
 
-              {achievement.extra === 'rank' && (
-                <div className="mt-6 text-center">
-                  <p className="text-sm font-medium text-zinc-400">Achieved #204 University Rank</p>
-                </div>
-              )}
-            </motion.div>
-          </div>
+                {achievement.extra === 'rank' && (
+                  <div className="mt-6 w-full max-w-md mx-auto">
+                    <img
+                      src="https://geeks-for-geeks-stats-api.vercel.app/?userName=roshankarthik160705&theme=dark"
+                      alt="GeeksForGeeks Stats"
+                      className="w-full rounded-lg border border-white/10"
+                    />
+                  </div>
+                )}
+              </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -1172,9 +1154,8 @@ const Training = () => {
 
   return (
     <section id="training" className="py-32 bg-transparent relative overflow-hidden" ref={ref}>
-      <div className="absolute top-0 left-0 w-full h-full bg-accent-purple/5 blur-[120px] pointer-events-none" />
       <div className="container mx-auto px-6 md:px-12">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 60, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
@@ -1182,9 +1163,9 @@ const Training = () => {
           className="max-w-5xl mx-auto glass p-12 md:p-20 rounded-[60px] border-white/5 relative overflow-hidden group"
         >
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent-purple/10 blur-[100px] -translate-y-1/2 translate-x-1/2 group-hover:bg-accent-purple/20 transition-colors duration-1000" />
-          
+
           <div className="relative z-10">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1194,10 +1175,10 @@ const Training = () => {
               Professional Training
             </motion.div>
             <h2 className="text-4xl md:text-6xl font-display font-black mb-10 leading-tight">
-              MASTERING DATA STRUCTURES <br/>
+              MASTERING DATA STRUCTURES <br />
               AND <span className="text-accent-purple relative">
                 ALGORITHMS
-                <motion.div 
+                <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: '100%' }}
                   viewport={{ once: true }}
@@ -1206,7 +1187,7 @@ const Training = () => {
                 />
               </span>.
             </h2>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -1215,7 +1196,7 @@ const Training = () => {
                 transition={{ delay: 0.4 }}
               >
                 <p className="text-zinc-400 text-lg leading-relaxed mb-8">
-                  Completed intensive training at AlgoTutor, focusing on algorithmic thinking and problem-solving 
+                  Completed intensive training at AlgoTutor, focusing on algorithmic thinking and problem-solving
                   with data structures including arrays, linked lists, stacks, queues, trees, graphs, and hashing.
                 </p>
                 <ul className="space-y-4">
@@ -1225,8 +1206,8 @@ const Training = () => {
                     'Competitive Programming Proficiency',
                     'Problem-Solving Enhancement'
                   ].map((item, i) => (
-                    <motion.li 
-                      key={i} 
+                    <motion.li
+                      key={i}
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -1239,7 +1220,7 @@ const Training = () => {
                   ))}
                 </ul>
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: 20, rotate: 2 }}
                 whileInView={{ opacity: 1, x: 0, rotate: 0 }}
                 viewport={{ once: true }}
@@ -1251,8 +1232,8 @@ const Training = () => {
                 <div className="text-[10px] font-black tracking-widest text-accent-purple mb-6 uppercase">Skills Mastered</div>
                 <div className="flex flex-wrap gap-3">
                   {['Data Structures', 'Algorithms', 'C++ Programming', 'Problem Solving', 'Competitive Coding', 'Time Complexity'].map((tech, i) => (
-                    <motion.span 
-                      key={tech} 
+                    <motion.span
+                      key={tech}
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
@@ -1286,7 +1267,7 @@ const Timeline = ({ items, type = 'education' }: { items: any[], type?: 'educati
     <div className="relative w-full overflow-x-auto lg:overflow-visible pb-20 pt-20 no-scrollbar snap-x snap-mandatory">
       {/* Horizontal Line (Desktop) */}
       <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-white/10 -translate-y-1/2 z-0">
-        <motion.div 
+        <motion.div
           className="h-full bg-linear-to-r from-accent-purple via-blue-500 to-accent-purple shadow-[0_0_15px_rgba(124,58,237,0.5)]"
           style={{ scaleX, originX: 0 }}
         />
@@ -1294,7 +1275,7 @@ const Timeline = ({ items, type = 'education' }: { items: any[], type?: 'educati
 
       {/* Vertical Line (Mobile) */}
       <div className="lg:hidden absolute left-8 top-0 bottom-0 w-0.5 bg-white/10 z-0">
-        <motion.div 
+        <motion.div
           className="w-full bg-linear-to-b from-accent-purple via-blue-500 to-accent-purple shadow-[0_0_15px_rgba(124,58,237,0.5)]"
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
@@ -1311,14 +1292,14 @@ const Timeline = ({ items, type = 'education' }: { items: any[], type?: 'educati
             <div key={i} className="relative flex flex-col lg:items-center lg:w-[450px] snap-center pl-12 lg:pl-0">
               {/* Node (Desktop) */}
               <div className="hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 items-center justify-center">
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 + i * 0.2, type: "spring", stiffness: 200 }}
                   className="w-5 h-5 rounded-full bg-accent-purple shadow-[0_0_20px_rgba(124,58,237,1)] border-4 border-primary"
                 />
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1.5, opacity: 0.2 }}
                   viewport={{ once: true }}
@@ -1329,7 +1310,7 @@ const Timeline = ({ items, type = 'education' }: { items: any[], type?: 'educati
 
               {/* Node (Mobile) */}
               <div className="lg:hidden absolute left-[-20px] top-4 z-10 flex items-center justify-center">
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
@@ -1368,7 +1349,7 @@ const Timeline = ({ items, type = 'education' }: { items: any[], type?: 'educati
               >
                 <div className="glass p-10 rounded-[40px] border-white/5 hover:border-accent-purple/30 hover:shadow-[0_0_40px_rgba(124,58,237,0.2)] transition-all duration-500 hover:scale-[1.03] bg-white/5 backdrop-blur-2xl relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   {type === 'certification' && item.img && (
                     <div className="w-full h-48 md:h-52 mb-8 rounded-[24px] overflow-hidden relative bg-zinc-950/20">
                       <img
@@ -1380,14 +1361,14 @@ const Timeline = ({ items, type = 'education' }: { items: any[], type?: 'educati
                       />
                     </div>
                   )}
-                  
+
                   <h3 className="text-2xl font-display font-black mb-3 group-hover:text-accent-purple transition-colors uppercase tracking-tight leading-tight">{item.title}</h3>
-                  
+
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-1 h-6 bg-accent-purple rounded-full" />
                     <div className="text-sm font-bold text-zinc-300 uppercase tracking-wide">{item.subtitle}</div>
                   </div>
-                  
+
                   <p className="text-zinc-500 text-sm leading-relaxed font-medium italic">"{item.desc}"</p>
                 </div>
               </motion.div>
@@ -1449,20 +1430,20 @@ const CertificationSlider = ({ items }: { items: any[] }) => {
   return (
     <div className="relative group/slider w-full">
       {/* Navigation Buttons */}
-      <button 
+      <button
         onClick={() => scroll('left')}
         className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white/50 backdrop-blur-md border border-black/10 flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all hover:bg-accent-purple hover:border-accent-purple -translate-x-7 hidden md:flex shadow-[0_0_20px_rgba(0,0,0,0.5)]"
       >
         <ArrowRight className="w-6 h-6 rotate-180" />
       </button>
-      <button 
+      <button
         onClick={() => scroll('right')}
         className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-white/50 backdrop-blur-md border border-black/10 flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all hover:bg-accent-purple hover:border-accent-purple translate-x-7 hidden md:flex shadow-[0_0_20px_rgba(0,0,0,0.5)]"
       >
         <ArrowRight className="w-6 h-6" />
       </button>
 
-      <div 
+      <div
         ref={scrollRef}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeave}
@@ -1480,7 +1461,7 @@ const CertificationSlider = ({ items }: { items: any[] }) => {
             initial={{ opacity: 0, scale: 0.8, rotateY: 20 }}
             whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
             viewport={{ once: true }}
-            transition={{ 
+            transition={{
               delay: i * 0.1,
               duration: 0.8,
               type: "spring",
@@ -1491,15 +1472,15 @@ const CertificationSlider = ({ items }: { items: any[] }) => {
             <div className="glass p-8 rounded-[40px] border-white/5 hover:border-accent-purple/30 hover:shadow-[0_0_50px_rgba(124,58,237,0.2)] transition-all duration-700 hover:scale-[1.02] bg-white/5 backdrop-blur-2xl h-[580px] flex flex-col relative overflow-hidden">
               {/* Card Background Glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              
+
               {item.img && (
-                <div className="flex justify-center items-center mb-8 rounded-4xl overflow-hidden relative shadow-lg" style={{height: '240px'}}>
-                  <img 
-                    src={item.img} 
-                    alt={item.title} 
-                    className="w-full h-[240px] object-cover rounded-3xl cursor-pointer" 
-                    style={{width: '100%', height: '240px', imageRendering: 'auto'}} 
-                    referrerPolicy="no-referrer" 
+                <div className="flex justify-center items-center mb-8 rounded-4xl overflow-hidden relative shadow-lg" style={{ height: '240px' }}>
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-[240px] object-cover rounded-3xl cursor-pointer"
+                    style={{ width: '100%', height: '240px', imageRendering: 'auto' }}
+                    referrerPolicy="no-referrer"
                     onClick={() => setModalImg(item.img)}
                   />
                 </div>
@@ -1508,14 +1489,14 @@ const CertificationSlider = ({ items }: { items: any[] }) => {
               <div className="px-5 py-2 rounded-full bg-accent-purple/10 border border-accent-purple/20 text-[10px] font-black tracking-[0.2em] text-accent-purple whitespace-nowrap w-fit mb-6 uppercase">
                 {item.year}
               </div>
-              
+
               <h3 className="text-2xl md:text-3xl font-display font-black mb-4 group-hover:text-accent-purple transition-colors uppercase tracking-tight leading-[1.1]">{item.title}</h3>
-              
+
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-1 h-8 bg-accent-purple rounded-full" />
                 <div className="text-sm font-bold text-zinc-300 uppercase tracking-wide">{item.subtitle}</div>
               </div>
-              
+
               <p className="text-zinc-500 text-sm leading-relaxed flex-grow line-clamp-4 font-medium italic">
                 "{item.desc}"
               </p>
@@ -1535,7 +1516,7 @@ const CertificationSlider = ({ items }: { items: any[] }) => {
       {modalImg && (
         <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center" onClick={() => setModalImg(null)}>
           <div className="relative" onClick={e => e.stopPropagation()}>
-            <img src={modalImg} alt="Certificate" className="max-w-[90vw] max-h-[80vh] rounded-3xl shadow-2xl border-4 border-accent-purple bg-white" style={{background: '#fff'}} />
+            <img src={modalImg} alt="Certificate" className="max-w-[90vw] max-h-[80vh] rounded-3xl shadow-2xl border-4 border-accent-purple bg-white" style={{ background: '#fff' }} />
             <button className="absolute top-2 right-2 bg-accent-purple text-white rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold shadow-lg" onClick={() => setModalImg(null)}>&times;</button>
           </div>
         </div>
@@ -1543,7 +1524,7 @@ const CertificationSlider = ({ items }: { items: any[] }) => {
 
       {/* Progress Bar */}
       <div className="max-w-md mx-auto h-1 bg-white/5 rounded-full mt-8 overflow-hidden">
-        <motion.div 
+        <motion.div
           className="h-full bg-accent-purple shadow-[0_0_10px_rgba(124,58,237,0.5)]"
           style={{ width: `${scrollProgress}%` }}
         />
@@ -1556,76 +1537,76 @@ const Experience = () => {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   const education = [
-    { 
-      year: 'AUG 2023 - PRESENT', 
-      title: 'LOVELY PROFESSIONAL UNIVERSITY', 
-      subtitle: 'B.Tech in Computer Science and Engineering', 
-      desc: 'Currently pursuing B.Tech with CGPA: 7.92' 
+    {
+      year: 'AUG 2023 - PRESENT',
+      title: 'LOVELY PROFESSIONAL UNIVERSITY',
+      subtitle: 'B.Tech in Computer Science and Engineering',
+      desc: 'Currently pursuing B.Tech with CGPA: 7.92'
     },
-    { 
-      year: 'JUN 2020 - MAR 2022', 
-      title: 'NARAYANA JUNIOR COLLEGE', 
-      subtitle: 'Intermediate (PCM)', 
-      desc: 'Higher secondary education with 98.1% in Physics, Chemistry, Mathematics' 
+    {
+      year: 'JUN 2020 - MAR 2022',
+      title: 'NARAYANA JUNIOR COLLEGE',
+      subtitle: 'Intermediate (PCM)',
+      desc: 'Higher secondary education with 98.1% in Physics, Chemistry, Mathematics'
     },
-    { 
-      year: 'APR 2019 - MAY 2020', 
-      title: 'SRI CHAITANYA TECHNO SCHOOL', 
-      subtitle: 'Matriculation', 
-      desc: 'Secondary education with 98.6% marks' 
+    {
+      year: 'APR 2019 - MAY 2020',
+      title: 'SRI CHAITANYA TECHNO SCHOOL',
+      subtitle: 'Matriculation',
+      desc: 'Secondary education with 98.6% marks'
     }
   ];
 
   const certifications = [
-  { 
-    year: 'SEP 2025', 
-    title: 'MACHINE LEARNING', 
-    subtitle: 'Coursera', 
-    desc: 'ML algorithms and neural networks.',
-    img: ML
-  },
-  {
-    year: 'AUG 2025',
-    title: 'AI-POWERED NLP',
-    subtitle: 'AlgoTutor',
-    desc: 'NLP concepts and practical tasks.',
-    img: NLP
-  },
-  {
-    year: 'NOV 2025',
-    title: 'AUTOMATION ANYWHERE',
-    subtitle: 'Automation Anywhere',
-    desc: 'RPA basics and bot development.',
-    img: robotics
-  },
-  {
-    year: 'FEB 2026',
-    title: 'ORACLE AI FOUNDATIONS',
-    subtitle: 'Oracle University',
-    desc: 'AI fundamentals on cloud.',
-    img: AI
-  },
-  {
-    year: 'FEB 2026',
-    title: 'ORACLE DATA PLATFORM',
-    subtitle: 'Oracle University',
-    desc: 'Data platforms and cloud services.',
-    img: dataPlatform
-  },
-  {
-    year: 'FEB 2026',
-    title: 'ORACLE CLOUD INFRA',
-    subtitle: 'Oracle University',
-    desc: 'Core cloud infrastructure concepts.',
-    img: Cloud
-  },
-  {
-    year: 'AUG 2025',
-    title: 'DSA',
-    subtitle: 'AlgoTutor',
-    desc: 'DSA problem-solving and optimization.',
-    img: DSA
-  }
+    {
+      year: 'SEP 2025',
+      title: 'MACHINE LEARNING',
+      subtitle: 'Coursera',
+      desc: 'ML algorithms and neural networks.',
+      img: ML
+    },
+    {
+      year: 'AUG 2025',
+      title: 'AI-POWERED NLP',
+      subtitle: 'AlgoTutor',
+      desc: 'NLP concepts and practical tasks.',
+      img: NLP
+    },
+    {
+      year: 'NOV 2025',
+      title: 'AUTOMATION ANYWHERE',
+      subtitle: 'Automation Anywhere',
+      desc: 'RPA basics and bot development.',
+      img: robotics
+    },
+    {
+      year: 'FEB 2026',
+      title: 'ORACLE AI FOUNDATIONS',
+      subtitle: 'Oracle University',
+      desc: 'AI fundamentals on cloud.',
+      img: AI
+    },
+    {
+      year: 'FEB 2026',
+      title: 'ORACLE DATA PLATFORM',
+      subtitle: 'Oracle University',
+      desc: 'Data platforms and cloud services.',
+      img: dataPlatform
+    },
+    {
+      year: 'FEB 2026',
+      title: 'ORACLE CLOUD INFRA',
+      subtitle: 'Oracle University',
+      desc: 'Core cloud infrastructure concepts.',
+      img: Cloud
+    },
+    {
+      year: 'AUG 2025',
+      title: 'DSA',
+      subtitle: 'AlgoTutor',
+      desc: 'DSA problem-solving and optimization.',
+      img: DSA
+    }
 
   ];
 
@@ -1634,8 +1615,7 @@ const Experience = () => {
       <div className="container mx-auto px-6 md:px-12">
         {/* Education Section */}
         <div className="mb-48 relative">
-          <FloatingElements />
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1644,7 +1624,7 @@ const Experience = () => {
             <div className="text-[10px] font-black tracking-[0.3em] text-accent-purple mb-4 uppercase">Academic Background</div>
             <TextReveal text="EDUCATION." className="text-4xl md:text-6xl font-display font-black" />
           </motion.div>
-          
+
           <div className="lg:h-[600px] flex items-center relative z-10">
             <Timeline items={education} type="education" />
           </div>
@@ -1652,8 +1632,7 @@ const Experience = () => {
 
         {/* Certifications Section */}
         <div className="relative" id="certification">
-          <FloatingElements />
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1662,7 +1641,7 @@ const Experience = () => {
             <div className="text-[10px] font-black tracking-[0.3em] text-accent-purple mb-4 uppercase">Professional Growth</div>
             <TextReveal text="CERTIFICATIONS." className="text-4xl md:text-6xl font-display font-black" />
           </motion.div>
-          
+
           <div className="relative z-10">
             <CertificationSlider items={certifications} />
           </div>
@@ -1677,10 +1656,8 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-32 relative" ref={ref}>
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-accent-purple/5 blur-[150px] pointer-events-none" />
-      
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -1694,14 +1671,14 @@ const Contact = () => {
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               <h2 className="text-4xl md:text-7xl font-display font-black mb-8 leading-[0.9] tracking-tighter">
-                LET'S <span className="text-accent-purple italic">BUILD</span><br/>
+                LET'S <span className="text-accent-purple italic">BUILD</span><br />
                 SOMETHING <span className="text-accent-purple">GREAT.</span>
               </h2>
               <p className="text-zinc-400 mb-12 leading-relaxed text-lg max-w-md">
                 Have a project in mind or just want to say hi? Feel free to reach out. I'm always open to new opportunities and collaborations.
               </p>
               <div className="space-y-8">
-                <motion.div 
+                <motion.div
                   whileHover={{ x: 10 }}
                   className="flex items-center gap-6 group cursor-pointer"
                 >
@@ -1713,7 +1690,7 @@ const Contact = () => {
                     <div className="font-bold text-lg group-hover:text-accent-purple transition-colors">roshankarrthik@gmail.com</div>
                   </div>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   whileHover={{ x: 10 }}
                   className="flex items-center gap-6 group cursor-pointer"
                 >
@@ -1728,7 +1705,7 @@ const Contact = () => {
               </div>
             </motion.div>
 
-            <motion.form 
+            <motion.form
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1736,7 +1713,7 @@ const Contact = () => {
               className="space-y-6"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -1746,7 +1723,7 @@ const Contact = () => {
                   <input type="text" placeholder="NAME" className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-xs font-bold tracking-widest focus:border-accent-purple outline-none transition-all focus:bg-white/10" />
                   <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent-purple group-focus-within:w-full transition-all duration-500" />
                 </motion.div>
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -1757,7 +1734,7 @@ const Contact = () => {
                   <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent-purple group-focus-within:w-full transition-all duration-500" />
                 </motion.div>
               </div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -1767,7 +1744,7 @@ const Contact = () => {
                 <input type="text" placeholder="SUBJECT" className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-xs font-bold tracking-widest focus:border-accent-purple outline-none transition-all focus:bg-white/10" />
                 <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent-purple group-focus-within:w-full transition-all duration-500" />
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -1777,7 +1754,7 @@ const Contact = () => {
                 <textarea placeholder="MESSAGE" rows={4} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-xs font-bold tracking-widest focus:border-accent-purple outline-none transition-all focus:bg-white/10 resize-none" />
                 <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent-purple group-focus-within:w-full transition-all duration-500" />
               </motion.div>
-              <motion.button 
+              <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -1873,7 +1850,7 @@ function GlitchLoader() {
     >
       <div className="relative flex flex-col items-center">
         {/* Flicker Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0.2 }}
           animate={{ opacity: [0.2, 0.5, 0.1, 0.4, 0.2] }}
           transition={{ duration: 0.7, repeat: Infinity, repeatType: 'mirror' }}
@@ -1885,12 +1862,14 @@ function GlitchLoader() {
           <motion.div
             key="glitch"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0, filter: [
-              'contrast(1.5) brightness(1.2)',
-              'contrast(2.5) brightness(2.2) hue-rotate(30deg)',
-              'contrast(1.2) brightness(0.8) hue-rotate(-30deg)',
-              'contrast(1.5) brightness(1.2)'
-            ] }}
+            animate={{
+              opacity: 1, y: 0, filter: [
+                'contrast(1.5) brightness(1.2)',
+                'contrast(2.5) brightness(2.2) hue-rotate(30deg)',
+                'contrast(1.2) brightness(0.8) hue-rotate(-30deg)',
+                'contrast(1.5) brightness(1.2)'
+              ]
+            }}
             transition={{ duration: 0.2 }}
             className="text-4xl md:text-6xl font-black tracking-widest text-accent-purple select-none"
             style={{ letterSpacing: '0.2em', textShadow: '0 0 12px #8B5CF6, 0 0 2px #fff' }}
@@ -1930,8 +1909,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-accent-cyan/30 overflow-x-hidden relative">
-      <GalaxyBackground />
-      <Stars />
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <GalaxyBackground />
+        <Stars />
+        <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 noise-bg pointer-events-none" />
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-[120px] animate-pulse-glow pointer-events-none" />
+      </div>
+
       <CursorGlow />
 
       <AnimatePresence>
@@ -1948,11 +1933,6 @@ export default function App() {
       <Experience />
       <Contact />
       <Footer />
-      {/* Background Glows */}
-      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-purple/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent-purple/5 rounded-full blur-[150px]" />
-      </div>
     </div>
   );
 }
